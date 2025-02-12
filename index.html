@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klīnisko vadlīniju meklētājs</title>
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/2.0/auth0-spa-js.production.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -46,13 +47,24 @@
         .guideline h3 {
             color: #023047;
         }
+        .auth-button {
+            background-color: #FFB703;
+            color: #023047;
+            font-weight: bold;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <span>Klīnisko vadlīniju meklētājs</span>
-        <button>Iziet</button>
+      <span>Klīnisko vadlīniju meklētājs</span>
+      <button id="auth-button" class="auth-button">Pierakstīties</button>
     </nav>
+
+    <script src="auth.js"></script> <!-- ✅ Pievienots ārējais skripts -->
 
     <div class="content">
         <div class="search-section">
@@ -84,5 +96,41 @@
             <p><strong>Endokrinologs:</strong> nepieciešami glikozes līmeņa testi.</p>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const auth0Client = await auth0.createAuth0Client({
+              domain: "dev-8bme4f6pagahcrue.eu.auth0.com",
+              clientId: "LUHuBRRJh6EnMtAjtztME7j87oDeV3W8",
+              authorizationParams: {
+                redirect_uri: "http://127.0.0.1:5500/index.html"
+                }
+            });
+
+            const authButton = document.getElementById("auth-button");
+
+            // Pārbauda, vai lietotājs jau ir pierakstījies
+            const isAuthenticated = await auth0Client.isAuthenticated();
+
+            if (isAuthenticated) {
+                const user = await auth0Client.getUser();
+                authButton.textContent = `Sveiks, ${user.name}`;
+                authButton.addEventListener("click", async () => {
+                    await auth0Client.logout({ returnTo: window.location.origin });
+                });
+            } else {
+                authButton.addEventListener("click", async () => {
+                    await auth0Client.loginWithRedirect();
+                });
+            }
+
+            // Pārbauda, vai lietotājs atgriezies no Auth0 pēc pierakstīšanās
+            const query = window.location.search;
+            if (query.includes("code=") && query.includes("state=")) {
+                await auth0Client.handleRedirectCallback();
+                window.location.replace(window.location.pathname);
+            }
+        });
+    </script>
 </body>
 </html>
