@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klīnisko vadlīniju meklētājs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #023047;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .search-section {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .guideline {
+            background: #f1f1f1;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .guideline h3 {
+            color: #023047;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <span>Klīnisko vadlīniju meklētājs</span>
+        <button>Iziet</button>
+    </nav>
+
+    <div class="content">
+        <div class="search-section">
+            <h1>Klīnisko vadlīniju meklētājs</h1>
+            <input type="text" placeholder="Ievadiet diagnozi vai kodu">
+            <select>
+                <option value="all">Visas diagnozes</option>
+                <option value="J00-J99">Elpošanas sistēmas slimības</option>
+                <option value="I00-I99">Asinsrites sistēmas slimības</option>
+                <option value="E00-E99">Endokrīnās slimības</option>
+            </select>
+            <button>Meklēt</button>
+        </div>
+
+        <div class="guideline">
+            <h3>1. Diagnostika</h3>
+            <p><strong>Galvenie simptomi:</strong> Nogurums, bieža urinēšana, slāpes.</p>
+            <p><strong>Izmeklējumi:</strong> Glikozes tests, HbA1c, urīna analīze.</p>
+        </div>
+
+        <div class="guideline">
+            <h3>2. Ārstēšana</h3>
+            <p><strong>Ko var darīt:</strong> Nosūtīt uz glikozes testu, sniegt uztura rekomendācijas.</p>
+            <p><strong>Steidzamības pakāpe:</strong> Ātra nosūtīšana, ja HbA1c > 9%.</p>
+        </div>
+
+        <div class="guideline">
+            <h3>3. Speciālisti</h3>
+            <p><strong>Endokrinologs:</strong> nepieciešami glikozes līmeņa testi.</p>
+        </div>
+    </div>
+</body>
+</html>
